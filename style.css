@@ -4,6 +4,7 @@ body{
     padding: 40px;
 }
 
+/*①自動スライダー*/
 .slider{
     width: 600px;
     height: 300px;
@@ -31,3 +32,44 @@ body{
 .slide.active{
     display: flex;
 }
+
+/*②左右ボタン付きスライダー*/
+.slider-btn{
+    width: 600px;
+    height: 300px;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    background: #ddd;
+}
+
+.slide-btn{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    font-size: 3rem;
+    background: #1a73e8;
+    color: #fff;
+}
+
+.slide-btn.active{
+    display: flex;
+}
+
+.prev, .next{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+.prev{left: 10px;}
+.next{right: 10px;}
