@@ -17,7 +17,7 @@ function nextSlide(){
     showSlide(currentIndex);
 }
 
-//　3秒ごとにスライドを切り替える
+// 3秒ごとにスライドを切り替える
 setInterval(nextSlide, 3000);
 
 
@@ -45,3 +45,43 @@ document.querySelector('.next').addEventListener('click', ()=>{
     }
     showSlideBtn(indexBtn);
 });
+
+/*③ドット付きスライダー*/
+const slidesDot = document.querySelectorAll('.slide-dot');
+const dots = document.querySelectorAll('.dot');
+let indexDot = 0;
+
+function showSlideDot(i){
+    //スライドのactiveを切り替え
+    slidesDot.forEach(slide => slide.classList.remove('active'));
+    slidesDot[i].classList.add('active');
+
+    //ドットのactiveを切り替え
+    dots.forEach(dot => dot.classList.remove('active'));
+    dots[i].classList.add('active');
+}
+
+//dotをクリックしたら次のスライドへ
+dots.forEach(dot =>{
+    dot.addEventListener('click', () => {
+        indexDot = Number(dot.dataset.index);
+        showSlideDot(indexDot);
+    });
+});
+
+/*フェード付きスライド*/
+const slideFade = document.querySelectorAll('.slide-fade');
+let indexFade = 0;
+
+function showSlideFade(i){
+    slideFade.forEach(slide => slide.classList.remove('active'));
+    slideFade[i].classList.add('active');
+}
+
+setInterval(()=>{
+    indexFade++;
+    if(indexFade >= slideFade.length){
+        indexFade = 0;
+    }
+    showSlideFade(indexFade);
+}, 3000);
