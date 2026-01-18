@@ -85,3 +85,61 @@ setInterval(()=>{
     }
     showSlideFade(indexFade);
 }, 3000);
+
+
+/*スワイプ対応スライダー*/
+const slidesSwipe = document.querySelectorAll('.slide-swipe');
+let indexSwipe = 0;
+let startX = 0;
+let endX = 0;
+//スワイプ閾値
+const SWIPE_THRESHOLD = 30;
+
+//スワイプ判定
+function handleSwipe(){
+    const diff = startX - endX;
+
+    //左スワイプ（次へ）
+    if(diff > SWIPE_THRESHOLD){
+        indexSwipe++;
+        if(indexSwipe >= slidesSwipe.length){
+            indexSwipe = 0;
+        }
+        showSlideSwipe(indexSwipe);
+    }
+
+    //右スワイプ（前へ）
+    if(diff < -SWIPE_THRESHOLD){
+        indexSwipe--;
+        if(indexSwipe < 0){
+            indexSwipe = slidesSwipe.length - 1;
+        }
+        showSlideSwipe(indexSwipe);
+    }
+}
+
+//スライド切り替え
+function showSlideSwipe(i){
+    slidesSwipe.forEach(slide => slide.classList.remove('active'));
+    slidesSwipe[i].classList.add('active');
+}
+
+//スワイプ開始(touch + mouse)
+function start(e){
+    startX = e.touches ? e.touches[0].clientX : e.clientX;
+}
+//スワイプ終了
+function end(e){
+    endX = (e.changedTouches && e.changedTouches.length > 0)
+     ? e.changedTouches[0].clientX
+     : e.clientX;
+    handleSwipe();
+}
+
+//イベント登録
+const swipeArea = document.querySelector('.slider-swipe');
+
+swipeArea.addEventListener('touchstart', start);
+swipeArea.addEventListener('touchend', end);
+swipeArea.addEventListener('mousedown', start);
+swipeArea.addEventListener('mouseup', end);
